@@ -1,9 +1,9 @@
-import logo from './logo.svg';
+
 import Demo from './pages/formedit'
 import './App.less';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import { Provider } from 'mobx-react'
-import stores from 'store';
+import stores from './store';
 
 function App() {
   return (

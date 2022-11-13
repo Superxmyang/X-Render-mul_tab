@@ -14,7 +14,10 @@ class Form{
     }
 
     @observable formEditSchema={}
-
+    
+    @action.bound setValue(key, value) {
+        this[key] = value;
+    }
 
 }
 let FormStore = new Form();

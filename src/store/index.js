@@ -1,11 +1,8 @@
-const context = require.context('./', false, /\.js$/);
-const keys = context.keys().filter(item => item !== './index.js');
-const stores = {};
-
-for (let i = 0; i < keys.length; i++) {
-  let key = keys[i].replace(/\.\/([\w]*)\.js/, (match, p1) => {
-    return p1;
-  });
-  stores[key] = context(keys[i]).default;
+import FormStore from "./FormStore";
+class Stores {
+  constructor() {
+      this.FormStore =FormStore;  //每次创建的状态在这里注入
+  }
 }
-export default stores;
+
+export default new Stores();
