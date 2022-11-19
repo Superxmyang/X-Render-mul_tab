@@ -14,7 +14,7 @@ class Form{
     }
 
     @observable formEditSchema={}
-    
+    @observable subFormName=[{ label: '标签一',key:'1', fields: {} }, { label: '标签二',key:'1', fields: {} }, { label: '标签三',key:'1', fields: {} }]
     @action.bound setValue(key, value) {
         this[key] = value;
     }

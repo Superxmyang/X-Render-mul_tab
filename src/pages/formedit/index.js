@@ -15,10 +15,13 @@ const Demo = observer(({ FormStore }) => {
     console.log('FormStore',FormStore)
     // const { formEditSchema } = FormStore
     const [schema, setSchema] = useState({});
-    useEffect(() => {
-        FormStore.setValue('formEditSchema',defaultValue)
-    }, []);
-
+    // useEffect(() => {
+    //     FormStore.setValue('formEditSchema',defaultValue)
+    // }, []);
+    useEffect(()=>{
+        ref.current.setValue(FormStore.formEditSchema)
+        console.log('refchange',toJS(FormStore.formEditSchema))
+    },[FormStore.formEditSchema])
     const defaultValue = {
         type: 'object',
         properties: {
@@ -30,21 +33,25 @@ const Demo = observer(({ FormStore }) => {
     };
 
     const schemaChange=(schema)=>{
-        // console.log('schema:change', schema)
-        // FormStore.setValue('formEditSchema', schema)
+        console.log('schema:change', schema)
+        FormStore.setValue('schema', toJS(schema))
         // setSchema(schema)
+        // ref.current.setValue(schema)
     }
-
+    const canDelete=()=>{
+        
+    }
 
     return (
         <div className="fr-generator-playground" style={{ height: '800px' }}>
             <Provider
-                schema={schema}
+                // schema={FormStore.formEditSchema}
                 onChange={data => console.log('data:change', data)}
                 onSchemaChange={schemaChange}
                 defaultValue={defaultValue}
                 globalSettings={defaultGlobalSettings}
-                
+                ref={ref}
+                canDelete={canDelete}
                 widgets={{
                     mul_tag:mul_tab,
                     Tab:Tab
