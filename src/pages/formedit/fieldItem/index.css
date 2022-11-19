@@ -1,0 +1,18 @@
+.one_tag {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.block{
+    display: block;
+}
+.field-wrapper{
+    border: 0;
+    background-color: #fff !important;
+    
+}
+.selected-field-wrapper{
+    outline:0 !important;
+    background-color: rgba(250,250,250,0.5) !important;
+}

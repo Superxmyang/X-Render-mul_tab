@@ -1,31 +1,31 @@
-import React, { Component } from 'react'
+import React, { Component , useEffect, useRef, useState} from 'react'
 import {Tabs} from 'antd'
+import { toJS } from 'mobx';
+import { inject, observer } from 'mobx-react';
 
-
-const Tab = ()=> {
-    const onChange=(e)=>{
-        console.log(e)
-    }
-    return (
-        <Tabs
-        defaultActiveKey="1"
-        onChange={onChange}
-        items={[
-          {
-            label: `Tab 1`,
-            key: '1'
-          },
-          {
-            label: `Tab 2`,
-            key: '2'
-          },
-          {
-            label: `Tab 3`,
-            key: '3'
-          },
-        ]}
-      />
-    )
+const Tab = observer(({FormStore})=> {
+  const ref=useRef()
   
-}
-export default Tab
+  const [subFormName,setSubFormName]=useState(toJS(FormStore.subFormName))
+  useEffect(() => {
+    setSubFormName(FormStore.subFormName)
+  }, [FormStore.subFormName])
+  const onChange=(e)=>{
+    console.log(e)
+    const lastChoose=toJS(FormStore).lastChoose
+    FormStore.changeFormEditSchema(e,lastChoose)
+    FormStore.setValue('lastChoose',e)
+  }
+  return (
+      <Tabs
+      defaultActiveKey={FormStore.lastChoose}
+      onChange={onChange}
+      items={subFormName}
+      ref={ref}
+      tabBarGutter={'10px'}
+      type='card'
+    />
+  )
+
+})
+export default inject((store) => ({ FormStore: store.FormStore }))(Tab);

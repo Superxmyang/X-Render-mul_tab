@@ -1,5 +1,6 @@
 import Generator from 'fr-generator';
 import React, { useEffect, useRef,useState } from 'react';
+import { DeleteOutlined } from "@ant-design/icons";
 import { defaultGlobalSettings } from './field_config'
 import { toJS } from 'mobx';
 import { inject, observer } from 'mobx-react';
@@ -25,10 +26,7 @@ const Demo = observer(({ FormStore }) => {
     const defaultValue = {
         type: 'object',
         properties: {
-            inputName: {
-                title: '简单输入框',
-                type: 'string',
-            },
+           
         },
     };
 
@@ -41,7 +39,15 @@ const Demo = observer(({ FormStore }) => {
     const canDelete=()=>{
         
     }
-
+    const deleteField=(event,schema)=>{
+        if(schema.widget==='Tab'){return}
+        console.log(schema)
+        let id=schema.$id.substring(2)
+        schema=ref.current.getValue()
+        delete schema.properties[id]
+        ref.current.setValue(schema)
+        FormStore.setValue('schema', toJS(schema))
+    }
     return (
         <div className="fr-generator-playground" style={{ height: '800px' }}>
             <Provider
@@ -52,6 +58,8 @@ const Demo = observer(({ FormStore }) => {
                 globalSettings={defaultGlobalSettings}
                 ref={ref}
                 canDelete={canDelete}
+                hideId={true}
+                controlButtons={[false,false,{ text: <DeleteOutlined/>, onClick:deleteField }]}
                 widgets={{
                     mul_tag:mul_tab,
                     Tab:Tab

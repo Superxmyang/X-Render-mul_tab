@@ -13,14 +13,6 @@ export const defaultGlobalSettings = {
             props: {
                 placeholder: '默认一行一列'
             }
-        },
-        displayType: {
-            title: '标签展示模式',
-            type: 'string',
-            default: 'column',
-            enum: ['row', 'column'],
-            enumNames: ['同行', '单独一行'],
-            widget: 'radio'
         }
     }
 };
